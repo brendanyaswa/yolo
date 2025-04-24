@@ -1,0 +1,22 @@
+version: '1.0'
+
+services:
+  backend:
+    image: brendanyaswa/yolo-backend:1.0.0 #backend image 
+    container_name: yolo-backend
+    ports:
+      - "5000:5000"  # the port that backend runs  on 
+    networks:
+      - yolo-net
+
+  frontend:
+    image: brendanyaswa/yolo-client:1.0.0  #  frontend image 
+    container_name: yolo-client
+    ports:
+      - "3000:3000"  # the port that client runs on 
+    networks:
+      - yolo-net
+
+networks:
+  yolo-net:
+    driver: bridge
