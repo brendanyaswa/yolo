@@ -1,22 +1,45 @@
-version: '1.0'
+#version: '1.0'
 
 services:
-  backend:
-    image: brendanyaswa/yolo-backend:1.0.0 #backend image 
-    container_name: yolo-backend
-    ports:
-      - "5000:5000"  # the port that backend runs  on 
-    networks:
-      - yolo-net
-
+#create frontend microservice
   frontend:
-    image: brendanyaswa/yolo-client:1.0.0  #  frontend image 
+    image: brendanyaswa/yolo-client:1.0.1  #  frontend image 
     container_name: yolo-client
     ports:
       - "3000:3000"  # the port that client runs on 
+    depends_on:
+      - backend
+    networks:
+      - yolo-net
+# create backend microservice
+  backend:
+    image: brendanyaswa/yolo-backend:1.0.1 #backend image 
+    container_name: yolo-backend
+    ports:
+      - "5001:5000"  # the port that backend runs  on 
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/yolomy
+    depends_on:
+      - mongodb
+      
+    networks:
+      - yolo-net
+
+#create database microservice
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
     networks:
       - yolo-net
 
 networks:
   yolo-net:
     driver: bridge
+
+volumes:
+  mongo-data:

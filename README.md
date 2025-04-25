@@ -7,9 +7,3 @@ Install the docker engine here:
 - [Docker](https://docs.docker.com/engine/install/) 
 
 ## How to launch the application 
-
-
-![Alt text](image.png)
-
-## How to run the app
-Use vagrant up --provison command

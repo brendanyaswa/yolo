@@ -13,8 +13,14 @@ RUN npm install
 COPY . .
 
 
-# Expose the port the app runs on
+# Adde muliti-stage build
+FROM alpine:latest
+
+WORKDIR /app
+COPY --from=build /usr/src/app /app
+#expose the port the app runs on
+
 EXPOSE 3000
 
-# Define the command to run your app
 CMD ["npm", "start"]
+
