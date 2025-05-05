@@ -26,7 +26,7 @@ Port Allocation:
 
 Client: "3000:3000" → local access via http://localhost:3000
 
-Backend: "5000:5000" → local access via http://localhost:5000
+Backend: "5001:5000" → local access via http://localhost:5000 -am binding 5001 to 5000 because some process was using port 5000 on my local machine.
 
 Bridge Network: Docker Compose automatically creates a bridge network (yolo_yolo-net) allowing containers to talk to each other by service name (e.g., the client can call http://backend:5000).
 
@@ -51,13 +51,13 @@ Both containers successfully started using docker compose up --build.
 
 Issues debugged:
 
-Port not reachable: Fixed by binding to 0.0.0.0 in React and Express.
+Port not reachable
 
 Authentication failure while pushing to DockerHub: Resolved by generating a personal access token and using it in docker login.
 
 #  Good Docker Practices
 
-Image Tags: Used version tags such as brendanyaswa/yolo-client:1.0.0 and brendanyaswa/yolo-backend:1.0.0 instead of latest for clarity and reproducibility.
+Image Tags: Used version tags such as brendanyaswa/yolo-client:1.0.1 and brendanyaswa/yolo-backend:1.0.1 instead of latest for clarity and reproducibility.
 
 Layer Caching: Installed dependencies before copying the full app to benefit from Docker layer caching.
 
@@ -65,5 +65,5 @@ Multi-stage builds (optional for production) can be added later to reduce image 
 
 # Screenshot of DockerHub
 
-![alt text](<Screenshot from 2025-04-24 10-14-58-1-2.png>)
-![alt text](<Screenshot from 2025-04-24 10-15-50.png>)
+![alt text](image-1.png)
+![alt text](image.png)
