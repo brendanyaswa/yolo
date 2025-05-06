@@ -4,6 +4,6 @@
   become: true
   roles: 
     - frontend-deployment
-    - setup-mongodb   
+    - mongodb-setup  
     - backend-deployment
     

@@ -1,14 +1,18 @@
 ---
-- name: Run MongoDB Container
-  docker_container:
-    name: app-mongo
-    image: mongo
-    ports:
-      - '27017:27017'
-    volumes:
-      - ./app-mongo-data:/data/db
-    networks:
-      - name: app-net
-  tags:
-    - database
-    - backend
+- name: Pull image from repository
+  image: mongo:latest
+  container_name: mongodb
+  restart: always
+  ports:
+    - "27017:27017"
+  volumes:
+    - mongo-data:/data/db
+  networks:
+    - yolo-net
+
+  networks:
+    - yolo-net
+  driver: bridge
+
+  volumes:
+    - mongo-data:

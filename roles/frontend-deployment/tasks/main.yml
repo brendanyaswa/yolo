@@ -1,0 +1,21 @@
+---
+- name: Pull image from repository
+  docker_image:
+    name: brendanyaswa/yolo-client:1.0.1 #backend image 
+    source: pull
+
+- name: Create yolo-client Container
+  docker_container:
+    name: yolo-client
+    image: brendanyaswa/yolo-backend:1.0.1 #backend image 
+    networks:
+      - name: yolo-net
+      - driver: bridge
+    depends_on:
+      - yolo-backend
+    ports:
+      - "3000:3000"
+    command: "npm start"
+  become: yes
+
+  

@@ -10,7 +10,15 @@
     image: brendanyaswa/yolo-backend:1.0.1 #backend image 
     networks:
       - name: yolo-net
+      - driver: bridge
     ports:
       - "5001:5000"
+    env:
+      MONGODB_URI: mongodb://mongodb:27017/yolomy #to persist data.
+    restart_policy: always
+    state: started
     command: "npm start"
   become: yes
+
+   
+  
