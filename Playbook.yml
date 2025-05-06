@@ -1,0 +1,9 @@
+
+- name: Ansible playbook for yolo project
+  hosts: all
+  become: true
+  roles: 
+    - frontend-deployment
+    - setup-mongodb   
+    - backend-deployment
+    

@@ -1,0 +1,16 @@
+---
+- name: Pull image from repository
+  docker_image:
+    name: brendanyaswa/yolo-backend:1.0.1 #backend image 
+    source: pull
+
+- name: Create yolo-backend Container
+  docker_container:
+    name: yolo-backend
+    image: brendanyaswa/yolo-backend:1.0.1 #backend image 
+    networks:
+      - name: yolo-net
+    ports:
+      - "5001:5000"
+    command: "npm start"
+  become: yes
