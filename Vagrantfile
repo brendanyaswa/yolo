@@ -16,24 +16,21 @@ Vagrant.configure("2") do |config|
       config.vm.box = "geerlingguy/ubuntu2004"
       config.vm.box_version = "1.0.4"
  
-
-  
-    # Create a forwarded port mapping which allows access to a specific port
-    # within the machine from a port on the host machine. In the example below,
-    # accessing "localhost:3000" will access port 3000 on the guest machine.
-    # NOTE: This will enable public access to the opened port
-    # config.vm.network "forwarded_port", guest: 3000, host: 3000
-  
-    # Create a forwarded port mapping which allows access to a specific port
-    # within the machine from a port on the host machine and only allow access
-    # via 127.0.0.1 to disable public access
-    # config.vm.network "forwarded_port", guest: 3000, host: 3000, host_ip: "127.0.0.1"
-      # Set up a forwarded port so you can access the application from your browser
-     config.vm.network "forwarded_port", guest: 3000, host: 3000
-  
     # Create a private network, which allows host-only access to the machine
-    # using a specific IP.
-    # config.vm.network "private_network", ip: "192.168.33.10"
+      config.vm.network "private_network", type: "dhcp"
+   
+     # Install Docker and Ansible
+   config.vm.provision "shell", inline: <<-SHELL
+   apt-get update
+   apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+   apt-get update
+   apt-get install -y docker-ce docker-ce-cli containerd.io
+   usermod -aG docker vagrant
+
+   apt-get install -y ansible
+  SHELL
   
     # Create a public network, which generally matched to bridged network.
     # Bridged networks make the machine appear as another physical device on
@@ -73,6 +70,7 @@ Vagrant.configure("2") do |config|
    
         config.vm.provision "ansible" do |ansible|
         ansible.playbook = "playbook.yml"  # Path to your Ansible playbook
+        ansible.become = true
       end
   
   end

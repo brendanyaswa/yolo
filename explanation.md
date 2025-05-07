@@ -67,3 +67,16 @@ Multi-stage builds (optional for production) can be added later to reduce image 
 
 ![alt text](image-1.png)
 ![alt text](image.png)
+# Playbook.yml
+The `playbook.yml` includes three roles: `frontend`, `backend`, and `mongodb`. These roles are responsible for:
+
+- Pulling Docker images from Docker Hub
+- Creating containers with appropriate settings
+- Configuring networking and persistent storage
+# Vagrantfile
+The `Vagrantfile`:
+- Uses the base box `geerlingguy/ubuntu2004` version `1.0.4`
+- Installs Docker and Ansible inside the virtual machine
+- Network configuration using a private network through dhcp 
+- Triggers the execution of the Ansible playbook on `vagrant up
+# Roles 
