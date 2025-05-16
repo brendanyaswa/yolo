@@ -79,4 +79,22 @@ The `Vagrantfile`:
 - Installs Docker and Ansible inside the virtual machine
 - Network configuration using a private network through dhcp 
 - Triggers the execution of the Ansible playbook on `vagrant up
-# Roles 
+
+
+# Explanation of IP4 Container Orchestration.
+
+# 1. Choice of Kubernetes Objects
+- **StatefulSet**: Used for MongoDB to ensure stable  volume persistence.
+- **Deployment**: Used for backend and frontend stateless services.
+- **Services**: ClusterIP for internal services (backend), LoadBalancer for frontend.
+
+## 2. Method of Exposing Pods
+- The **frontend** service uses a `LoadBalancer` service to expose to internet traffic on GKE.
+- Backend and MongoDB use internal ClusterIP services.
+
+## 3. Persistent Storage
+- **MongoDB** uses a `volumeClaimTemplate` to ensure data survives pod restarts or rescheduling.
+
+## 5. Debugging Measures
+- Used `kubectl logs`, `kubectl describe pod`, and `kubectl get events` to troubleshoot deployment issues.
+- Verified connectivity between pods with `kubectl exec`.

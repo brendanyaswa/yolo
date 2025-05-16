@@ -14,7 +14,7 @@ COPY . .
 
 
 # Adde muliti-stage build
-FROM alpine:latest
+FROM node:14-slim
 
 WORKDIR /app
 COPY --from=build /usr/src/app /app

@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: yolo-frontend
 spec:
+  type: LoadBalancer  # to expose the front end to the internet
   selector:
     app: yolo-frontend
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
-  type: LoadBalancer  # to expose the front end to the internet
+      nodePort: 32000 
+  
