@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: brendanyaswa/yolo-client:1.0.1
+        image: brendanyaswa/yolo-client:1.0.3
         ports:
         - containerPort: 3000
         resources:  #added the resources to prevent nosy neighbors from hogging

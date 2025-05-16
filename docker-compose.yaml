@@ -3,7 +3,7 @@
 services:
 #create frontend microservice
   frontend:
-    image: brendanyaswa/yolo-client:1.0.1  #  frontend image 
+    image: brendanyaswa/yolo-client:1.0.2 #  frontend image 
     container_name: yolo-client
     ports:
       - "3000:3000"  # the port that client runs on 

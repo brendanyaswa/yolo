@@ -1,26 +1,24 @@
-# Use an official Node runtime as a parent image
+# Stage 1: Build React app
 FROM node:14-slim AS build
-# Set the working directory in the container
+
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
-
-# Install application dependencies
 RUN npm install
 
-# Copy the rest of the application code to the container
 COPY . .
+RUN npm run build
 
-
-# Adde muliti-stage build
+# Stage 2: Serve using 'serve'
 FROM node:14-slim
 
+RUN npm install -g serve
+
 WORKDIR /app
-COPY --from=build /usr/src/app /app
-#expose the port the app runs on
+
+# Copy only the build output
+COPY --from=build /usr/src/app/build ./build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
-
+CMD ["serve", "-s", "build", "-l", "3000"]
