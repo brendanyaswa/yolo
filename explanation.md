@@ -98,3 +98,7 @@ The `Vagrantfile`:
 ## 5. Debugging Measures
 - Used `kubectl logs`, `kubectl describe pod`, and `kubectl get events` to troubleshoot deployment issues.
 - Verified connectivity between pods with `kubectl exec`.
+
+
+## External link to my application
+http://34.9.246.234/
